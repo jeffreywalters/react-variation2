@@ -11,7 +11,7 @@ const Layout = (props) => (
       {props.children}
     </div>
     <footer className='container' style={{ backgroundColor: '#eee', padding: '20px' }}>
-      https://github.com/jeffreywalters/react-challenge
+      https://github.com/jeffreywalters/react-variation2
     </footer>
   </div>
 )
