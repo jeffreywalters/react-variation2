@@ -81,6 +81,7 @@ class RequestTable extends React.Component {
                   {' '}
                   <DeleteModal
                     onDelete={() => this._handleDeleteClick(request.get('id'))}
+                    requestTitle={request.get('title')}
                   />
                 </td>
               </tr>
@@ -145,7 +146,8 @@ class DeleteModal extends React.Component {
   }
 
   static propTypes = {
-    onDelete: React.PropTypes.func
+    onDelete: React.PropTypes.func,
+    requestTitle: React.PropTypes.string
   }
 
   close() {
@@ -177,7 +179,7 @@ class DeleteModal extends React.Component {
             <Modal.Title>Confirm</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <p>Delete this Request?</p>
+            <p>Delete Request "<b>{this.props.requestTitle}</b>"?</p>
           </Modal.Body>
           <Modal.Footer>
             <Button

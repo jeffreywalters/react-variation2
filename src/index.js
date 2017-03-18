@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { provideHooks, trigger } from 'redial'
 import { Router, Route, IndexRoute, browserHistory, match } from 'react-router'
+import Immutable from 'immutable'
 import { actions as requestActions } from './redux/modules/requests.js'
 import LayoutContainer from './containers/LayoutContainer'
 import DetailsContainer from './containers/DetailsContainer'
@@ -15,7 +16,10 @@ String.prototype.capitalize = function () {
   return this.charAt(0).toUpperCase() + this.slice(1).toLowerCase()
 }
 
-const reduxStore = createStore({})
+// const initialState = window.__INITIAL_STATE__ && Immutable.fromJS(JSON.stringify(window.__INITIAL_STATE__))
+const initialState = window.__INITIAL_STATE__ && { requests: Immutable.fromJS(window.__INITIAL_STATE__) }
+console.log(initialState)
+const reduxStore = createStore(initialState)
 const { dispatch } = reduxStore
 
 const hooks = {
@@ -51,9 +55,9 @@ browserHistory.listen(location => {
     }
 
     // Don't fetch data for initial route, server has already done the work:
-    if (window.INITIAL_STATE) {
+    if (window.__INITIAL_STATE__) {
       // Delete initial data so that subsequent data fetches can occur:
-      delete window.INITIAL_STATE
+      delete window.__INITIAL_STATE__
     } else {
       // Fetch mandatory data dependencies for 2nd route change onwards:
       trigger('fetch', components, locals)
@@ -65,7 +69,7 @@ browserHistory.listen(location => {
 })
 
 // kick off first fetch
-browserHistory.push('/')
+// browserHistory.push('/')
 
 const App = () => (
   <Provider store={reduxStore}>
@@ -76,7 +80,5 @@ const App = () => (
 const render = () => {
   ReactDOM.render(<App />, document.getElementById('root'))
 }
-
-// reduxStore.subscribe(render)
 
 render()

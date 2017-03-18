@@ -55,8 +55,8 @@ export const actions = {
         // })
         if (response.status >= 300) throw new Error(response.status)
         const requests = await response.json()
-        // dispatch(this.fetchSuccess(requests.data.requests))
-        dispatch(this.fetchSuccess(requests))
+        dispatch(this.fetchSuccess(requests.data.requests))
+        // dispatch(this.fetchSuccess(requests))
       } catch (error) {
         dispatch({ type: constants.FETCH_FAILURE, error })
       }
