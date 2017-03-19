@@ -66,7 +66,7 @@ class RequestTable extends React.Component {
                     placement='right'
                     overlay={this._getPopover(request.get('id'), request.get('status'))
                   }>
-                    <span>{request.get('status').capitalize()}</span>
+                    <a role="button" tabIndex="0">{request.get('status').capitalize()}</a>
                   </OverlayTrigger>
                 </td>
                 <td>{this._formatDate(request.get('updatedAt'))}</td>
